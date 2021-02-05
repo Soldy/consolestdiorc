@@ -7,6 +7,24 @@
  * @prototype
  */
 const stdiorcBase=function(){
+    this.cursorUp = function (line) {
+        return cursorUp(line);
+    }
+    this.cursorDown = function (line) {
+        return cursorDown(line);
+    }
+    this.cursorLeft = function (left) {
+        return cursorLeft(left);
+    }
+    this.cursorRight = function (right) {
+        return cursorRight(right);
+    }
+    this.cursorHide = function(){
+        return cursorHide();
+    }
+    this.cursorShow = function(){
+        return cursorShow();
+    }
     this.cursorTo = function(x,y){
         return cursorTo(x,y);
     }
@@ -59,6 +77,24 @@ const stdiorcBase=function(){
             text.toString()
         );
         return true;
+    }
+    const cursorUp = function (line) {
+        process.stdout.write('\u001b[' + line + 'A');
+    }
+    const cursorDown = function (line) {
+        process.stdout.write('\u001b[' + line + 'B');
+    }
+    const cursorLeft = function (left) {
+        process.stdout.write('\u001b[' + left + 'D');
+    }
+    const cursorRight = function (right) {
+        process.stdout.write('\u001b[' + right + 'C');
+    }
+    const cursorHide = function(){
+        process.stdout.write('\x1B[?25l');
+    }
+    const cursorShow = function(){
+        process.stdout.write('\x1B[?25h');
     }
 }
 
