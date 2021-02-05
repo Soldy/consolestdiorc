@@ -1,6 +1,6 @@
 {
   "name": "consolestdiorc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "console stdio rc",
   "main": "index.js",
   "scripts": {
