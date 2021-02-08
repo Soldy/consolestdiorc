@@ -2,6 +2,12 @@
 
 simple stdio helper
 
+## install 
+
+```bash
+npm i consolestdiorc
+
+```
 
 
 ## init
@@ -47,7 +53,6 @@ stdio.printLn(
 ```
 
 
-
 ## cursorTo
 
 ```javascript
@@ -55,5 +60,19 @@ stdio.cursorTo(
     x,
     y
 );
+
+```
+
+## cursorHide
+
+```javascript
+stdio.cursorHide();
+
+```
+
+## cursorShow
+
+```javascript
+stdio.cursorShow();
 
 ```
