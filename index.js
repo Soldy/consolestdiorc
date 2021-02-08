@@ -7,46 +7,105 @@
  * @prototype
  */
 const stdiorcBase=function(){
+    /*
+     * @param {integer} line 
+     * @public
+     */
     this.cursorUp = function (line) {
-        return cursorUp(line);
+        cursorUp(line);
     }
+    /*
+     * @param {integer} line 
+     * @public
+     */
     this.cursorDown = function (line) {
-        return cursorDown(line);
+        cursorDown(line);
     }
+    /*
+     * @param {integer} left 
+     * @public
+     */
     this.cursorLeft = function (left) {
-        return cursorLeft(left);
+        cursorLeft(left);
     }
+    /*
+     * @param {integer} right 
+     * @public
+     */
     this.cursorRight = function (right) {
-        return cursorRight(right);
+        cursorRight(right);
     }
+    /*
+     * @public
+     */
     this.cursorHide = function(){
-        return cursorHide();
+        cursorHide();
     }
+    /*
+     * @public
+     */
     this.cursorShow = function(){
-        return cursorShow();
+        cursorShow();
     }
+    /*
+     * @param {integer} x
+     * @param {integer} y
+     * @public
+     * @return {boolean}
+     */
     this.cursorTo = function(x,y){
         return cursorTo(x,y);
     }
+    /*
+     * @public
+     */
     this.clear = function(){
-        return clear();
+        clear();
     }
-    this.print = function(text){
-        return print(text);
-    }
+    /*
+     * @param {string} text
+     * @param {integer} x
+     * @param {integer} y
+     * @public
+     * @return {boolean}
+     */
     this.printTo = function(text, x , y){
         return printTo(text, x , y);
     }
+    /*
+     * @param {string} text
+     * @public
+     */
+    this.print = function(text){
+        print(text);
+    }
+    /*
+     * @param {string} text
+     * @public
+     */
     this.printLn = function(text){
-        return printLn(text);
+        printLn(text);
+    }
+    /*
+     * @param {string} text
+     * @public
+     */
+    this.println = function(text){
+        printLn(text);
     }
     const stdout = process.stdout;
     const stderr = process.stderr;
+    /*
+     * @param {integer} x
+     * @param {integer} y
+     * @private
+     * @return {boolean}
+     */
     const cursorTo = function(x, y){
         if(typeof x === 'undefined')
-            x = stdout.colums;
+            x = 0;
         if(typeof y === 'undefined')
-            y = stdout.rows;
+            y = 0;
         if(
             (0>x)||
             (0>y)||
@@ -57,42 +116,92 @@ const stdiorcBase=function(){
         stdout.cursorTo(x,y);
         return true;
     }
+    /*
+     * @private
+     */
     const clear = function(){
         stdout.write('\u001b[2J\u001b[0;0f');
     }
+    /*
+     * @param {string} text
+     * @param {integer} x
+     * @param {integer} y
+     * @private
+     * @return {boolean}
+     */
     const printTo = function(text, x, y){
         if(cursorTo(x,y) === false)
             return false;
-        return print(text);
- 
-    }
-    const printLn = function(text){
-        stdout.cursorTo(0);
-        return print(
-            text.toString() + '\n'
-        );
-    }
-    const print = function(text){
         stdout.write(
             text.toString()
         );
         return true;
+ 
     }
+    /*
+     * @param {string} text
+     * @private
+     */
+    const printLn = function(text){
+        stdout.cursorTo(0);
+        stdout.write(
+            text.toString() + '\n'
+        );
+    }
+    /*
+     * @param {string} text
+     * @private
+     */
+    const print = function(text){
+        stdout.write(
+            text.toString()
+        );
+    }
+    /*
+     * @param {integer} line 
+     * @private
+     */
     const cursorUp = function (line) {
+        if(typeof line === 'undefined')
+            line = '1';
         process.stdout.write('\u001b[' + line + 'A');
     }
+    /*
+     * @param {integer} line 
+     * @private
+     */
     const cursorDown = function (line) {
+        if(typeof line === 'undefined')
+            line = '1';
         process.stdout.write('\u001b[' + line + 'B');
     }
+    /*
+     * @param {integer} left 
+     * @private
+     */
     const cursorLeft = function (left) {
+        if(typeof left === 'undefined')
+            left = '1';
         process.stdout.write('\u001b[' + left + 'D');
     }
+    /*
+     * @param {integer} right 
+     * @private
+     */
     const cursorRight = function (right) {
+        if(typeof right === 'undefined')
+            right = '1';
         process.stdout.write('\u001b[' + right + 'C');
     }
+    /*
+     * @private
+     */
     const cursorHide = function(){
         process.stdout.write('\x1B[?25l');
     }
+    /*
+     * @private
+     */
     const cursorShow = function(){
         process.stdout.write('\x1B[?25h');
     }
