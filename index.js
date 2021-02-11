@@ -113,7 +113,12 @@ const stdiorcBase=function(){
             (y>stdout.rows)
         )
             return false;
-        stdout.cursorTo(x,y);
+        if(typeof stdout.cursorTo === 'undefined'){
+            stdout.write('\u001b['+x.toString()+'F');
+            stdout.write('\u001b['+y.toString()+'G');
+        }else{
+            stdout.cursorTo(x,y);
+        }
         return true;
     }
     /*
@@ -143,7 +148,7 @@ const stdiorcBase=function(){
      * @private
      */
     const printLn = function(text){
-        stdout.cursorTo(0);
+        process.stdout.write('\u001b[0G');
         stdout.write(
             text.toString() + '\n'
         );
@@ -164,7 +169,7 @@ const stdiorcBase=function(){
     const cursorUp = function (line) {
         if(typeof line === 'undefined')
             line = '1';
-        process.stdout.write('\u001b[' + line + 'A');
+        stdout.write('\u001b[' + line + 'A');
     }
     /*
      * @param {integer} line 
@@ -173,7 +178,7 @@ const stdiorcBase=function(){
     const cursorDown = function (line) {
         if(typeof line === 'undefined')
             line = '1';
-        process.stdout.write('\u001b[' + line + 'B');
+        stdout.write('\u001b[' + line + 'B');
     }
     /*
      * @param {integer} left 
@@ -182,7 +187,7 @@ const stdiorcBase=function(){
     const cursorLeft = function (left) {
         if(typeof left === 'undefined')
             left = '1';
-        process.stdout.write('\u001b[' + left + 'D');
+        stdout.write('\u001b[' + left + 'D');
     }
     /*
      * @param {integer} right 
@@ -191,19 +196,19 @@ const stdiorcBase=function(){
     const cursorRight = function (right) {
         if(typeof right === 'undefined')
             right = '1';
-        process.stdout.write('\u001b[' + right + 'C');
+        stdout.write('\u001b[' + right + 'C');
     }
     /*
      * @private
      */
     const cursorHide = function(){
-        process.stdout.write('\x1B[?25l');
+        stdout.write('\x1B[?25l');
     }
     /*
      * @private
      */
     const cursorShow = function(){
-        process.stdout.write('\x1B[?25h');
+        stdout.write('\x1B[?25h');
     }
 }
 
