@@ -93,7 +93,15 @@ const stdiorcBase=function(){
     this.println = function(text){
         printLn(text);
     }
+    /*
+     * @private
+     * @var {stdout}
+     */
     const stdout = process.stdout;
+    /*
+     * @private
+     * @var {stderr}
+     */
     const stderr = process.stderr;
     /*
      * @param {integer} x
