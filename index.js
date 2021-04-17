@@ -121,9 +121,9 @@ const stdiorcBase=function(){
             (y>stdout.rows)
         )
             return false;
-        if(typeof stdout.cursorTo === 'undefined'){
-            stdout.write('\u001b['+x.toString()+'F');
-            stdout.write('\u001b['+y.toString()+'G');
+        if(typeof stdout.cursorTo !== 'function'){
+             stdout.write('\u001b['+x.toString()+'F');
+             stdout.write('\u001b['+y.toString()+'G');
         }else{
             stdout.cursorTo(x,y);
         }

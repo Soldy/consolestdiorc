@@ -25,4 +25,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i --verbose
-    - run: npm test
+    - run: npm ls
+    - run: echo 'console.log(typeof process.stdout.cursorTo)' | node
+    - run: node example.js

@@ -1,6 +1,6 @@
 {
   "name": "consolestdiorc",
-  "version": "0.0.4-r1",
+  "version": "0.0.4-r2",
   "description": "console stdio rc",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "nanoTest": "^0.9.9-beta15"
   },
   "keywords": [],
   "author": "Soldy <npmjs@gidigi.com> (http://gidigi.com)",
