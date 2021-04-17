@@ -27,4 +27,5 @@ jobs:
     - run: npm i --verbose
     - run: npm ls
     - run: echo 'console.log(typeof process.stdout.cursorTo)' | node
+    - run: echo 'console.log(process.stdout)' | node
     - run: node example.js
