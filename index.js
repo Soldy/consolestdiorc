@@ -12,40 +12,40 @@ const stdiorcBase=function(){
      * @public
      */
     this.cursorUp = function (line) {
-        cursorUp(line);
+        return _cursorUp(line);
     }
     /*
      * @param {integer} line 
      * @public
      */
     this.cursorDown = function (line) {
-        cursorDown(line);
+        return _cursorDown(line);
     }
     /*
      * @param {integer} left 
      * @public
      */
     this.cursorLeft = function (left) {
-        cursorLeft(left);
+        return _cursorLeft(left);
     }
     /*
      * @param {integer} right 
      * @public
      */
     this.cursorRight = function (right) {
-        cursorRight(right);
+        return _cursorRight(right);
     }
     /*
      * @public
      */
     this.cursorHide = function(){
-        cursorHide();
+        return _cursorHide();
     }
     /*
      * @public
      */
     this.cursorShow = function(){
-        cursorShow();
+        return _cursorShow();
     }
     /*
      * @param {integer} x
@@ -54,13 +54,13 @@ const stdiorcBase=function(){
      * @return {boolean}
      */
     this.cursorTo = function(x,y){
-        return cursorTo(x,y);
+        return _cursorTo(x,y);
     }
     /*
      * @public
      */
     this.clear = function(){
-        clear();
+        return _clear();
     }
     /*
      * @param {string} text
@@ -70,46 +70,46 @@ const stdiorcBase=function(){
      * @return {boolean}
      */
     this.printTo = function(text, x , y){
-        return printTo(text, x , y);
+        return _printTo(text, x , y);
     }
     /*
      * @param {string} text
      * @public
      */
     this.print = function(text){
-        print(text);
+        return _print(text);
     }
     /*
      * @param {string} text
      * @public
      */
     this.printLn = function(text){
-        printLn(text);
+        return _printLn(text);
     }
     /*
      * @param {string} text
      * @public
      */
     this.println = function(text){
-        printLn(text);
+        return _printLn(text);
     }
     /*
      * @private
      * @var {stdout}
      */
-    const stdout = process.stdout;
+    const _stdout = process.stdout;
     /*
      * @private
      * @var {stderr}
      */
-    const stderr = process.stderr;
+    const _stderr = process.stderr;
     /*
      * @param {integer} x
      * @param {integer} y
      * @private
      * @return {boolean}
      */
-    const cursorTo = function(x, y){
+    const _cursorTo = function(x, y){
         if(typeof x === 'undefined')
             x = 0;
         if(typeof y === 'undefined')
@@ -117,23 +117,23 @@ const stdiorcBase=function(){
         if(
             (0>x)||
             (0>y)||
-            (x>stdout.columns)||
-            (y>stdout.rows)
+            (x>_stdout.columns)||
+            (y>_stdout.rows)
         )
             return false;
-        if(typeof stdout.cursorTo !== 'function'){
-             stdout.write('\u001b['+x.toString()+'F');
-             stdout.write('\u001b['+y.toString()+'G');
+        if(typeof _stdout.cursorTo !== 'function'){
+             _stdout.write('\u001b['+x.toString()+'F');
+             _stdout.write('\u001b['+y.toString()+'G');
         }else{
-            stdout.cursorTo(x,y);
+            _stdout.cursorTo(x,y);
         }
         return true;
     }
     /*
      * @private
      */
-    const clear = function(){
-        stdout.write('\u001b[2J\u001b[0;0f');
+    const _clear = function(){
+        _stdout.write('\u001b[2J\u001b[0;0f');
     }
     /*
      * @param {string} text
@@ -142,10 +142,10 @@ const stdiorcBase=function(){
      * @private
      * @return {boolean}
      */
-    const printTo = function(text, x, y){
-        if(cursorTo(x,y) === false)
+    const _printTo = function(text, x, y){
+        if(_cursorTo(x,y) === false)
             return false;
-        stdout.write(
+        _stdout.write(
             text.toString()
         );
         return true;
@@ -155,9 +155,9 @@ const stdiorcBase=function(){
      * @param {string} text
      * @private
      */
-    const printLn = function(text){
-        process.stdout.write('\u001b[0G');
-        stdout.write(
+    const _printLn = function(text){
+        _stdout.write('\u001b[0G');
+        _stdout.write(
             text.toString() + '\n'
         );
     }
@@ -165,8 +165,8 @@ const stdiorcBase=function(){
      * @param {string} text
      * @private
      */
-    const print = function(text){
-        stdout.write(
+    const _print = function(text){
+        _stdout.write(
             text.toString()
         );
     }
@@ -174,49 +174,49 @@ const stdiorcBase=function(){
      * @param {integer} line 
      * @private
      */
-    const cursorUp = function (line) {
+    const _cursorUp = function (line) {
         if(typeof line === 'undefined')
             line = '1';
-        stdout.write('\u001b[' + line + 'A');
+        _stdout.write('\u001b[' + line + 'A');
     }
     /*
      * @param {integer} line 
      * @private
      */
-    const cursorDown = function (line) {
+    const _cursorDown = function (line) {
         if(typeof line === 'undefined')
             line = '1';
-        stdout.write('\u001b[' + line + 'B');
+        _stdout.write('\u001b[' + line + 'B');
     }
     /*
      * @param {integer} left 
      * @private
      */
-    const cursorLeft = function (left) {
+    const _cursorLeft = function (left) {
         if(typeof left === 'undefined')
             left = '1';
-        stdout.write('\u001b[' + left + 'D');
+        _stdout.write('\u001b[' + left + 'D');
     }
     /*
      * @param {integer} right 
      * @private
      */
-    const cursorRight = function (right) {
+    const _cursorRight = function (right) {
         if(typeof right === 'undefined')
             right = '1';
-        stdout.write('\u001b[' + right + 'C');
+        _stdout.write('\u001b[' + right + 'C');
     }
     /*
      * @private
      */
-    const cursorHide = function(){
-        stdout.write('\x1B[?25l');
+    const _cursorHide = function(){
+        _stdout.write('\x1B[?25l');
     }
     /*
      * @private
      */
-    const cursorShow = function(){
-        stdout.write('\x1B[?25h');
+    const _cursorShow = function(){
+        _stdout.write('\x1B[?25h');
     }
 }
 
